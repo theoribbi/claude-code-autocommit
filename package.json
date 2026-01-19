@@ -1,0 +1,36 @@
+{
+  "name": "claude-code-autocommit",
+  "version": "1.0.0",
+  "description": "MCP server for generating Conventional Commits messages from git changes",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "claude-code-autocommit": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "git",
+    "commit",
+    "conventional-commits"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
