@@ -58,7 +58,6 @@ Any other text after the flag is a commit message override.
 - If there are no staged changes and `--all` was not passed, inform the user they need to stage changes first
 - If the user provided a commit message override in the arguments, use that instead of generating one
 - Always show the full commit message before executing
-- Add `Co-Authored-By: Claude <noreply@anthropic.com>` to the commit message body
 
 ## Example Output
 
@@ -68,8 +67,6 @@ Based on the staged changes, I suggest:
 feat(auth): add password reset functionality
 
 This commit adds a new password reset flow with email verification.
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 
 Shall I commit with this message?
 ```
