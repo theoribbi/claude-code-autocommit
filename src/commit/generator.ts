@@ -13,7 +13,7 @@ function generateDescription(summary: ChangesSummary): string {
   }
 
   // Single file - use file name
-  if (files.length === 1) {
+    if (files.length === 1) {
     const file = files[0];
     const fileName = file.path.split("/").pop() || file.path;
     const action = getActionVerb(file.status);

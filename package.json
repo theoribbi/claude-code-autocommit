@@ -1,6 +1,6 @@
 {
   "name": "@theoribbi/claude-code-autocommit",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Autocommit for Claude Code - MCP server and slash command for generating Conventional Commits",
   "type": "module",
   "main": "dist/mcp/index.js",
