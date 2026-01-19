@@ -1,53 +1,61 @@
 # claude-code-autocommit
 
-An MCP server that generates [Conventional Commits](https://www.conventionalcommits.org/) messages from git changes with minimal token consumption.
+Generate [Conventional Commits](https://www.conventionalcommits.org/) messages from git changes in Claude Code.
+
+**Two installation methods available:**
+- **MCP Server** - Full integration with tools for analyzing changes, generating messages, and executing commits
+- **Slash Command** - Lightweight `/autocommit` command that works directly in Claude Code
 
 ## Installation
 
-### Configuration Files
+### Option 1: Slash Command (Recommended for simplicity)
 
-Claude Code looks for MCP server configuration in these locations:
+Install the `/autocommit` slash command:
 
-| File | Scope |
-|------|-------|
-| `~/.claude/settings.json` | Global (all projects) |
-| `<project>/.claude/settings.json` | Project-specific |
+```bash
+# Install globally
+npm install -g @theoribbi/claude-code-autocommit
 
-### Using npx (recommended)
+# Add the slash command to your user commands
+claude-code-autocommit-slash install
 
-Add the following to your settings file:
+# Or install for a specific project only
+claude-code-autocommit-slash install --project
+```
 
-**Global** (`~/.claude/settings.json`):
+Then use in Claude Code:
+```
+/autocommit              # Commit staged changes
+/autocommit --all        # Stage all changes and commit
+/autocommit "message"    # Commit with custom message
+```
+
+### Option 2: MCP Server (Full integration)
+
+The MCP server provides three tools for more granular control over the commit process.
+
+#### Using npx (recommended)
+
+Add to your settings file (`~/.claude/settings.json` for global, or `.claude/settings.json` for project):
+
 ```json
 {
   "mcpServers": {
     "autocommit": {
       "command": "npx",
-      "args": ["-y", "claude-code-autocommit"]
+      "args": ["-y", "@theoribbi/claude-code-autocommit"]
     }
   }
 }
 ```
 
-**Or project-specific** (`.claude/settings.json` in your project root):
-```json
-{
-  "mcpServers": {
-    "autocommit": {
-      "command": "npx",
-      "args": ["-y", "claude-code-autocommit"]
-    }
-  }
-}
-```
-
-### Manual installation
+#### Manual installation
 
 ```bash
 npm install -g @theoribbi/claude-code-autocommit
 ```
 
-Then add to your settings file (`~/.claude/settings.json` or `.claude/settings.json`):
+Then add to your settings file:
 
 ```json
 {
@@ -61,7 +69,25 @@ Then add to your settings file (`~/.claude/settings.json` or `.claude/settings.j
 
 > **Note**: After modifying the settings file, restart Claude Code for the changes to take effect.
 
-## Tools
+## Slash Command Usage
+
+The `/autocommit` command analyzes your staged changes and generates a conventional commit message.
+
+```
+/autocommit              # Generate commit for staged changes
+/autocommit --all        # Stage all changes first, then commit
+/autocommit "fix typo"   # Use custom message instead of generating one
+```
+
+The command will:
+1. Analyze the git diff
+2. Determine the appropriate commit type (feat, fix, docs, etc.)
+3. Detect the scope from directory structure
+4. Generate a descriptive commit message
+5. Show you the proposed message and ask for confirmation
+6. Execute the commit
+
+## MCP Server Tools
 
 ### `analyze_changes`
 
@@ -130,13 +156,24 @@ Scopes are extracted from directory structure:
 - `packages/core/` → scope: `core`
 - Multiple directories → no scope
 
-## Example Usage
+## Package Exports
 
+```javascript
+// MCP Server entry point
+import "@theoribbi/claude-code-autocommit/mcp-server"
+
+// Slash command installer
+import "@theoribbi/claude-code-autocommit/slash-command"
 ```
-1. Stage your changes: git add .
-2. Ask Claude: "Generate a commit message for my staged changes"
-3. Review the suggested message
-4. Ask Claude: "Commit with that message"
+
+## Uninstall Slash Command
+
+```bash
+# Remove from user commands
+claude-code-autocommit-slash uninstall
+
+# Remove from project commands
+claude-code-autocommit-slash uninstall --project
 ```
 
 ## Development
@@ -148,8 +185,11 @@ npm install
 # Build
 npm run build
 
-# Run locally
-node dist/index.js
+# Run MCP server locally
+node dist/mcp/index.js
+
+# Test slash command installer
+node dist/slash-command/install.js --help
 ```
 
 ## License
