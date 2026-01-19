@@ -7,20 +7,33 @@
   "bin": {
     "claude-code-autocommit": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
     "claude",
     "git",
     "commit",
-    "conventional-commits"
+    "conventional-commits",
+    "model-context-protocol"
   ],
-  "author": "",
+  "author": "theoribbi",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theoribbi/claude-code-autocommit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theoribbi/claude-code-autocommit/issues"
+  },
+  "homepage": "https://github.com/theoribbi/claude-code-autocommit#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.23.0"
