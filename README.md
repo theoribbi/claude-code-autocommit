@@ -44,7 +44,7 @@ Add the following to your settings file:
 ### Manual installation
 
 ```bash
-npm install -g claude-code-autocommit
+npm install -g @theoribbi/claude-code-autocommit
 ```
 
 Then add to your settings file (`~/.claude/settings.json` or `.claude/settings.json`):
